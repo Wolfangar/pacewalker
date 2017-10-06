@@ -6,6 +6,7 @@ public class characontroller : MonoBehaviour {
 
 	public bool camtrigger;
 	public float xblock;
+	public float speed;
 	// Use this for initialization
 	void Start () {
 		camtrigger = false; 
@@ -13,7 +14,8 @@ public class characontroller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+		transform.Translate(Input.GetAxis("Horizontal")*speed, Input.GetAxis("Vertical")*speed, 0);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

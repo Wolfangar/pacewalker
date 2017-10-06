@@ -8,6 +8,8 @@ public class cameracontroller : MonoBehaviour {
 	public bool camtrigger;
 	public float offsety;
 	public float xblock;
+	public float ycam;
+	public float camspeed;
 
 
 	// Use this for initialization
@@ -19,14 +21,24 @@ public class cameracontroller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		gameObject.transform.position = new Vector2 (controller.transform.position.x, controller.transform.position.y + offsety) ;
+		Vector3 screenPos = Camera.main.WorldToViewportPoint(controller.transform.position);
 
+		if (screenPos.x > 0.55)
+		{
+
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x + camspeed , offsety, ycam);
+
+		}
+		if ( screenPos.x < 0.45)
+		{
+
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x - camspeed, offsety, ycam);
+
+		}
 
 		if (camtrigger == true){
 
-
-					gameObject.transform.position = new Vector2 (xblock, controller.transform.position.y + offsety) ;
-
+			gameObject.transform.position = new Vector3 (xblock,offsety, ycam) ;
 
 		}
 
