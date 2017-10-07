@@ -327,7 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 974536657}
   camtrigger: 0
-  offsety: 0
+  offsety: 5
   xblock: 0
   ycam: -10
   camspeed: 0.1

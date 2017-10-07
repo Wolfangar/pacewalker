@@ -12,16 +12,21 @@ public class cameracontroller : MonoBehaviour {
 	public float camspeed;
 
 
+
 	// Use this for initialization
 	void Start () {
 
 		camtrigger = controller.GetComponent<characontroller>().camtrigger;
-		
+		gameObject.transform.position = gameObject.transform.position + new Vector3(0, offsety, 0);
+
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
+
 		Vector3 screenPos = Camera.main.WorldToViewportPoint(controller.transform.position);
+
 
 		if (screenPos.x > 0.55)
 		{
