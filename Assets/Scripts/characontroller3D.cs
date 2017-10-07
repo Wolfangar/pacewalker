@@ -85,10 +85,6 @@ public class characontroller3D : MonoBehaviour {
 			anim.SetBool("Dash", true);
             Dash();
         }
-		else
-		{
-			anim.SetBool("Dash", false);
-		}
 
 		if (velocity.x > 0)
 		{
@@ -102,6 +98,7 @@ public class characontroller3D : MonoBehaviour {
 
     void endDashing()
     {
+        anim.SetBool("Dash", false);
         isDashing = false;
         recover = false;
         StartCoroutine(Wait());
