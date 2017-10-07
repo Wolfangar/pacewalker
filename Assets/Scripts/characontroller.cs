@@ -12,22 +12,31 @@ public class characontroller : MonoBehaviour {
 	public float xmove;
 	public float ymove;
 	public bool recover;
+	public float cooldown;
+	StaminaManager staminascript;
 
 	// Use this for initialization
 	void Start () {
 		camtrigger = false;
 		dash = 0;
 		recover = true;
+		staminascript = GetComponent<StaminaManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (staminascript.currentHealth <= 0)
+		{
+			staminascript.dead();
+		}
+
 		if (Input.GetKeyDown("space") && recover == true)
 		{
 			recover = false;
 			dash = dashspeed;
 			xmove = Input.GetAxis("Horizontal") * speed * dash;
 			ymove = Input.GetAxis("Vertical") * speed * dash;
+			staminascript.currentHealth = gameObject.GetComponent<StaminaManager>().currentHealth - gameObject.GetComponent<StaminaManager>().dashStamina;
 			StartCoroutine(Wait());
 		}
 		else
@@ -54,7 +63,7 @@ public class characontroller : MonoBehaviour {
 	IEnumerator Wait()
 	{
 		
-		yield return new WaitForSeconds(3.0f);
+		yield return new WaitForSeconds(cooldown);
 		recover = true;
 	
 	}
