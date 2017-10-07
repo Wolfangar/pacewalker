@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
-    public GameObject target;
-    public float speed, cynthiaspeed, joespeed, mardukspeed, hitdmg;
+    public float speed, attackSpeed, hitdmg;
+    [HideInInspector]
 	public bool hit, presence;
 	Animator anim;
 	StaminaManager herostam;
@@ -28,7 +28,16 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector2 direction = (target.transform.position - transform.position).normalized;
+        movement();
+        if(hit)
+        {
+            checkHit();
+        }
+    }
+
+    private void movement()
+    {
+        Vector2 direction = (hero.transform.position - transform.position).normalized;
         //transform.position += direction * speed * Time.deltaTime;
         //rigidBody.AddForce(direction * speed * Time.deltaTime);
         Vector2 newPos = new Vector2(transform.position.x, transform.position.y - GetComponent<SpriteRenderer>().bounds.size.y / 2);
@@ -44,10 +53,10 @@ public class Enemy : MonoBehaviour {
             }
         }
     */
-        navMesh.SetDestination(target.transform.position);
+        navMesh.SetDestination(hero.transform.position);
         navMesh.updateRotation = false;
         //Debug.Log("velocity.normalized.x "+ GetComponent<NavMeshAgent>().velocity.normalized.x);
-        if(canReverse && navMesh.velocity.normalized.sqrMagnitude != 0 && canAttack)
+        if (canReverse && navMesh.velocity.normalized.sqrMagnitude != 0 && canAttack)
         {
             canReverse = false;
             int flip = (navMesh.velocity.normalized).x > 0 ? -1 : 1;
@@ -64,76 +73,80 @@ public class Enemy : MonoBehaviour {
         canReverse = true;
     }
 
+    private void checkHit()
+    {
+        if(presence)
+        {
+            Debug.Log("damage");
+            herostam.loseHealth(hitdmg);
+        }
+    }
+
 	// comportement attaque
-	private void OnCollisionStay(Collision collision)
+	private void OnTriggerStay(Collider collision)
 	{
+        if (collision.gameObject == this)
+            return;
+
+        if (collision.gameObject.tag == "charac")
+        {
+            presence = true;
+        }
+        else
+        {
+            return;
+        }
+
         if (!canAttack)
             return;
         
-        if (collision.gameObject.tag == "charac")
-		{
-            canAttack = false;
 
-            anim.SetBool("attack", true);
+        canAttack = false;
 
-            navMesh.isStopped = true;
-            navMesh.velocity = Vector3.zero;
+        anim.SetBool("attack", true);
 
-            presence = true;
-		}
+        navMesh.isStopped = true;
+        navMesh.velocity = Vector3.zero;
 		
-		if (collision.gameObject.tag == "charac" && (gameObject.tag == "cynthia"|| gameObject.tag == "joe") && presence == true)
+		if ((gameObject.tag == "cynthia"|| gameObject.tag == "joe") && presence == true)//if cac is true par exemple a la place
 		{
 			attackcac();
 		}
-		if (collision.gameObject.tag == "charac" && (gameObject.tag == "marduk") && presence == true)
+		if ((gameObject.tag == "marduk") && presence == true)
 		{
 			attackrange();
 		}
 
 	}
 
-	private void OnCollisionExit(Collision collision)
+	private void OnTriggerExit(Collider collision)
 	{
-		anim.SetBool("attack", false);
-		presence = false;
+        if (collision.gameObject == this)
+            return;
+
+        if (collision.gameObject.tag == "charac")
+        {
+            anim.SetBool("attack", false);
+            presence = false;
+        }
 	}
 	//Carac d'attaque
-	void attackcac ()
+	void attackcac()
 	{
-
-		herostam.loseHealth(hitdmg);
-
-		if (gameObject.tag == "cynthia")
-		{
-			StartCoroutine(cynthiatimer());
-		}
-		if (gameObject.tag == "joe")
-		{
-			StartCoroutine(joetimer());
-
-		}
+		StartCoroutine(attackTimer());
 	}
+
 	void attackrange()
 	{
 
 	}
 
-	IEnumerator cynthiatimer()
+	IEnumerator attackTimer()
 	{
-		yield return new WaitForSeconds(cynthiaspeed);
+		yield return new WaitForSeconds(attackSpeed);
         navMesh.isStopped = false;
         canAttack = true;
-        Debug.Log("cynthia over");
-
-    }
-	IEnumerator joetimer()
-	{
-		yield return new WaitForSeconds(joespeed);
-        navMesh.isStopped = false;
-        canAttack = true;
-        
-
+        Debug.Log("attack over");
     }
 
 	void FixedUpdate()
