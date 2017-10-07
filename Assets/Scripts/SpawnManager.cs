@@ -21,6 +21,8 @@ public class SpawnManager : MonoBehaviour {
 
     public float spawnBadDistance = 10;
 
+    public Counter counter;
+
     private List<bool> availablePileSpawns = new List<bool>();
 
     // Use this for initialization
@@ -124,6 +126,7 @@ public class SpawnManager : MonoBehaviour {
             GameObject spawned = Instantiate(templateBad);
             spawned.transform.position = tempList[indexSelected].transform.position;
             spawned.GetComponent<Enemy>().hero = hero;
+            spawned.GetComponent<StaminaManager>().counter = counter;
 
             currentCountBad -= startCountBadSpeed;
 

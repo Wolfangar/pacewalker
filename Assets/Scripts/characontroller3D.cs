@@ -18,19 +18,26 @@ public class characontroller3D : MonoBehaviour {
     public float dashSpeed = 20;
     public float dashDistance = 3;
     public float recoverTime = 0.5f;
+    public float dashDmg;
+
 	Animator anim;
-	Transform trans;
+    StaminaManager stam;
 
     // Use this for initialization
     void Start () {
         rigidBody = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator>();
-		trans = GetComponent<Transform>();
+        stam = GetComponent<StaminaManager>();
     }
-    
+
+    private Vector3 lastVelo;
+
     private void Dash()
     {
         Vector3 direction = velocity.normalized;
+
+        //if (direction.sqrMagnitude == 0)//dash a l'arret
+           // direction = lastVelo.normalized;
 
         isDashing = true;
 
@@ -54,13 +61,15 @@ public class characontroller3D : MonoBehaviour {
         velocity = Vector3.zero;
     }
 
-    private Vector3 velocity;
+    private Vector3 velocity = new Vector3(1, 0, 0);
 
     private void Update()
     {
         velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * speed;
+        if (velocity.sqrMagnitude != 0)
+            lastVelo = velocity;
 
-		if (velocity.x != 0)
+        if (velocity.x != 0)
 		{
 			//anim.SetBool("Movehoriz", true);
 			anim.SetBool("Move", true);
@@ -83,16 +92,17 @@ public class characontroller3D : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)
         {
 			anim.SetBool("Dash", true);
+            stam.loseHealth(dashDmg);
             Dash();
         }
 
 		if (velocity.x > 0)
 		{
-			trans.localScale = new Vector3(-1, 1, 1);
+			transform.localScale = new Vector3(-1, 1, 1);
 		}
 		if (velocity.x < 0)
 		{
-			trans.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(1, 1, 1);
 		}
     }
 

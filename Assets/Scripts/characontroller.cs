@@ -38,7 +38,7 @@ public class characontroller : MonoBehaviour {
 			dash = dashspeed;
 			xmove = Input.GetAxis("Horizontal") * speed * dash;
 			ymove = Input.GetAxis("Vertical") * speed * dash;
-			staminascript.currentHealth = gameObject.GetComponent<StaminaManager>().currentHealth - gameObject.GetComponent<StaminaManager>().dashStamina;
+			//staminascript.currentHealth = gameObject.GetComponent<StaminaManager>().currentHealth - gameObject.GetComponent<StaminaManager>().dashStamina;
 			StartCoroutine(Wait());
 		}
 		else
