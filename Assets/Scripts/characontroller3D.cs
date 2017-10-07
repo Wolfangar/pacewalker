@@ -18,10 +18,14 @@ public class characontroller3D : MonoBehaviour {
     public float dashSpeed = 20;
     public float dashDistance = 3;
     public float recoverTime = 0.5f;
+	Animator anim;
+	Transform trans;
 
     // Use this for initialization
     void Start () {
         rigidBody = GetComponent<Rigidbody>();
+		anim = GetComponent<Animator>();
+		trans = GetComponent<Transform>();
     }
     
     private void Dash()
@@ -56,10 +60,44 @@ public class characontroller3D : MonoBehaviour {
     {
         velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * speed;
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)
+		if (velocity.x != 0)
+		{
+			//anim.SetBool("Movehoriz", true);
+			anim.SetBool("Move", true);
+
+		}
+	
+		if (velocity.z != 0)
+		{
+			anim.SetBool("Movevert", true);
+			anim.SetBool("Move", true);
+
+		}
+		if (velocity == new Vector3 (0,0,0))
+		{
+			anim.SetBool("Movehoriz", false);
+			anim.SetBool("Movevert", false);
+			anim.SetBool("Move", false);
+
+		}
+		if (Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)
         {
+			anim.SetBool("Dash", true);
             Dash();
         }
+		else
+		{
+			anim.SetBool("Dash", false);
+		}
+
+		if (velocity.x > 0)
+		{
+			trans.localScale = new Vector3(-1, 1, 1);
+		}
+		if (velocity.x < 0)
+		{
+			trans.localScale = new Vector3(1, 1, 1);
+		}
     }
 
     // Update is called once per frame
