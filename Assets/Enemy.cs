@@ -13,11 +13,16 @@ public class Enemy : MonoBehaviour {
 	public GameObject hero;
     //private float initScaleX;
 
+    private NavMeshAgent navMesh;
+
+    bool canAttack = true;
+
     // Use this for initialization
     void Start () {
         rigidBody = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 		herostam = hero.GetComponent<StaminaManager>();
+        navMesh = GetComponent<NavMeshAgent>();
         //initScaleX = transform.localScale.x;
     }
 	
@@ -39,13 +44,13 @@ public class Enemy : MonoBehaviour {
             }
         }
     */
-        GetComponent<NavMeshAgent>().SetDestination(target.transform.position);
-        GetComponent<NavMeshAgent>().updateRotation = false;
+        navMesh.SetDestination(target.transform.position);
+        navMesh.updateRotation = false;
         //Debug.Log("velocity.normalized.x "+ GetComponent<NavMeshAgent>().velocity.normalized.x);
-        if(canReverse)
+        if(canReverse && navMesh.velocity.normalized.sqrMagnitude != 0 && canAttack)
         {
             canReverse = false;
-            int flip = (GetComponent<NavMeshAgent>().velocity.normalized).x > 0 ? -1 : 1;
+            int flip = (navMesh.velocity.normalized).x > 0 ? -1 : 1;
             transform.localScale = new Vector3(flip, transform.localScale.y, transform.localScale.z);
             StartCoroutine(reverseTimer());
         }
@@ -62,11 +67,19 @@ public class Enemy : MonoBehaviour {
 	// comportement attaque
 	private void OnCollisionStay(Collision collision)
 	{
-		anim.SetBool("attack", true);
-
-		if (collision.gameObject.tag == "charac")
+        if (!canAttack)
+            return;
+        
+        if (collision.gameObject.tag == "charac")
 		{
-			presence = true;
+            canAttack = false;
+
+            anim.SetBool("attack", true);
+
+            navMesh.isStopped = true;
+            navMesh.velocity = Vector3.zero;
+
+            presence = true;
 		}
 		
 		if (collision.gameObject.tag == "charac" && (gameObject.tag == "cynthia"|| gameObject.tag == "joe") && presence == true)
@@ -89,7 +102,7 @@ public class Enemy : MonoBehaviour {
 	void attackcac ()
 	{
 
-		herostam.currentHealth -= hitdmg;
+		herostam.loseHealth(hitdmg);
 
 		if (gameObject.tag == "cynthia")
 		{
@@ -109,13 +122,19 @@ public class Enemy : MonoBehaviour {
 	IEnumerator cynthiatimer()
 	{
 		yield return new WaitForSeconds(cynthiaspeed);
-		
-	}
+        navMesh.isStopped = false;
+        canAttack = true;
+        Debug.Log("cynthia over");
+
+    }
 	IEnumerator joetimer()
 	{
 		yield return new WaitForSeconds(joespeed);
-		
-	}
+        navMesh.isStopped = false;
+        canAttack = true;
+        
+
+    }
 
 	void FixedUpdate()
     {
