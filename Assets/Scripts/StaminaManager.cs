@@ -27,7 +27,7 @@ public class StaminaManager : MonoBehaviour {
     public void dead()
     {
         Debug.Log(transform.name + " is dead, not a big surprise");
-        Destroy(this);
+        Destroy(gameObject);
         //Time.timeScale = 0;
     }
 

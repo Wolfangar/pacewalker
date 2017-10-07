@@ -259,6 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 974536659}
   - component: {fileID: 974536658}
+  - component: {fileID: 974536660}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -280,6 +281,11 @@ MonoBehaviour:
   camtrigger: 0
   xblock: 0
   speed: 0.1
+  dash: 0
+  dashspeed: 10
+  xmove: 0
+  ymove: 0
+  recover: 0
 --- !u!4 &974536659
 Transform:
   m_ObjectHideFlags: 0
@@ -294,6 +300,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &974536660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 974536657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20c69aa4d43ab14cb420c6b1d90f246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalHealth: 0
+  hitDamage: 0
+  dashStamina: 0
+  decreasingSpeed: 0
+  currentHealth: 0
 --- !u!1 &1162035358
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 974536657}
   camtrigger: 0
-  offsety: 5
+  offsety: 2
   xblock: 0
   ycam: -10
   camspeed: 0.1
