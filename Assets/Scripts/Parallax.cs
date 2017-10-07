@@ -15,7 +15,7 @@ public class Parallax : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         deltaX = cameraTransform.position.x - lastCameraX;
         transform.position += Vector3.right * (deltaX * parallaxSpeed);
         lastCameraX = cameraTransform.position.x;
