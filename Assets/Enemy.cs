@@ -5,14 +5,19 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
     public GameObject target;
-    public float speed;
-
+    public float speed, cynthiaspeed, joespeed, mardukspeed, hitdmg;
+	public bool hit, presence;
+	Animator anim;
+	StaminaManager herostam;
     private Rigidbody2D rigidBody;
+	public GameObject hero;
     //private float initScaleX;
 
     // Use this for initialization
     void Start () {
         rigidBody = GetComponent<Rigidbody2D>();
+		anim = GetComponent<Animator>();
+		herostam = hero.GetComponent<StaminaManager>();
         //initScaleX = transform.localScale.x;
     }
 	
@@ -54,7 +59,65 @@ public class Enemy : MonoBehaviour {
         canReverse = true;
     }
 
-    void FixedUpdate()
+	// comportement attaque
+	private void OnCollisionStay(Collision collision)
+	{
+		anim.SetBool("attack", true);
+
+		if (collision.gameObject.tag == "charac")
+		{
+			presence = true;
+		}
+		
+		if (collision.gameObject.tag == "charac" && (gameObject.tag == "cynthia"|| gameObject.tag == "joe") && presence == true)
+		{
+			attackcac();
+		}
+		if (collision.gameObject.tag == "charac" && (gameObject.tag == "marduk") && presence == true)
+		{
+			attackrange();
+		}
+
+	}
+
+	private void OnCollisionExit(Collision collision)
+	{
+		anim.SetBool("attack", false);
+		presence = false;
+	}
+	//Carac d'attaque
+	void attackcac ()
+	{
+
+		herostam.currentHealth -= hitdmg;
+
+		if (gameObject.tag == "cynthia")
+		{
+			StartCoroutine(cynthiatimer());
+		}
+		if (gameObject.tag == "joe")
+		{
+			StartCoroutine(joetimer());
+
+		}
+	}
+	void attackrange()
+	{
+
+	}
+
+	IEnumerator cynthiatimer()
+	{
+		yield return new WaitForSeconds(cynthiaspeed);
+		
+	}
+	IEnumerator joetimer()
+	{
+		yield return new WaitForSeconds(joespeed);
+		
+	}
+
+	void FixedUpdate()
     {
         /*
 

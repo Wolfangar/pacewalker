@@ -7,6 +7,9 @@ TagManager:
   - petite_pile
   - grosse_pile
   - Obstacle
+  - cynthia
+  - joe
+  - marduk
   layers:
   - Default
   - TransparentFX
