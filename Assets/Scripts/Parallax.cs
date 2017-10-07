@@ -10,7 +10,7 @@ public class Parallax : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        cameraTransform = Camera.current.transform;
+        cameraTransform = Camera.main.transform;
         lastCameraX = cameraTransform.position.x;
     }
 	
