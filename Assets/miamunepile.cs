@@ -19,18 +19,18 @@ public class miamunepile : MonoBehaviour {
 		
 	}
 
-	private void OnCollisionEnter (Collision collision)
+	private void OnTriggerEnter (Collider coll)
 	{
-		if(collision.gameObject.tag == "petite_pile")
+		if(coll.gameObject.tag == "petite_pile")
 		{
 			Debug.Log("touche une petite pile");
             stam.currentHealth += petitepile;
-			Destroy(collision.gameObject);
+			Destroy(coll.gameObject);
 		}
-		if (collision.gameObject.tag == "grosse_pile")
+		if (coll.gameObject.tag == "grosse_pile")
 		{
             stam.currentHealth += grossepile;
-			Destroy(collision.gameObject);
+			Destroy(coll.gameObject);
 		}
 	}
 }
