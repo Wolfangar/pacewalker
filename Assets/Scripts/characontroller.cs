@@ -14,6 +14,7 @@ public class characontroller : MonoBehaviour {
 	public bool recover;
 	public float cooldown;
 	StaminaManager staminascript;
+	Animator animator;
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +22,8 @@ public class characontroller : MonoBehaviour {
 		dash = 0;
 		recover = true;
 		staminascript = GetComponent<StaminaManager>();
-	}
+		animator = GetComponent<Animator>();
+			}
 	
 	// Update is called once per frame
 	void Update () {
@@ -46,6 +48,11 @@ public class characontroller : MonoBehaviour {
 			ymove = Input.GetAxis("Vertical") * speed;
 		}
 		transform.Translate(xmove, ymove, 0);
+
+		if (xmove != 0)
+		{
+			animator.SetBool("Movehoriz",true); 
+		}
 
 	}
 
