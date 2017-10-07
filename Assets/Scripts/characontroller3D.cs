@@ -4,33 +4,26 @@ using UnityEngine;
 
 public class characontroller3D : MonoBehaviour {
 
-	public bool camtrigger;
-	public float xblock;
-	public float speed;
-	public float dash;
-	public float dashspeed;
-	public float xmove;
-	public float ymove;
-	public bool recover;
-
+    [HideInInspector]
+	public bool camtrigger = false;
+    [HideInInspector]
+    public float xblock;
+    
     private Rigidbody rigidBody;
+    private Vector3 dashTarget;
+    private bool recover = true;
+    private bool isDashing = false;
 
-    protected Vector3 dashTarget;
-    protected float dashSpeed = 20;
+    public float speed;
+    public float dashSpeed = 20;
     public float dashDistance = 3;
+    public float recoverTime = 0.5f;
 
     // Use this for initialization
     void Start () {
-		camtrigger = false;
-		dash = 0;
-		recover = true;
-
         rigidBody = GetComponent<Rigidbody>();
     }
-
-
-    private bool isDashing = false;
-
+    
     private void Dash()
     {
         Vector3 direction = velocity.normalized;
@@ -63,7 +56,7 @@ public class characontroller3D : MonoBehaviour {
     {
         velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * speed;
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+        if (Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)
         {
             Dash();
         }
@@ -79,6 +72,8 @@ public class characontroller3D : MonoBehaviour {
             if (distSqr < 0.1f)
             {
                 isDashing = false;
+                recover = false;
+                StartCoroutine(Wait());
                 dashTarget = Vector2.zero;
             }
             else
@@ -146,10 +141,8 @@ public class characontroller3D : MonoBehaviour {
 
 	IEnumerator Wait()
 	{
-		
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(recoverTime);
 		recover = true;
-	
 	}
 
 }
