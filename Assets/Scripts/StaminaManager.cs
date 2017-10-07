@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StaminaManager : MonoBehaviour {
-    public int totalHealth, hitDamage, dashStamina;
-    public float decreasingSpeed, currentHealth;
+    public int totalHealth, dashStamina;
+    public float decreasingSpeed;
+    [HideInInspector]
+    public float currentHealth;
 	//GameObject GameManager;
 
     public Counter counter;

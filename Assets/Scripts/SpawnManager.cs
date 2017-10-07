@@ -121,7 +121,9 @@ public class SpawnManager : MonoBehaviour {
             int numberBad = tempList.Count;
             int indexSelected = Random.Range(0, numberBad);
 
-            Instantiate(templateBad).transform.position = tempList[indexSelected].transform.position;
+            GameObject spawned = Instantiate(templateBad);
+            spawned.transform.position = tempList[indexSelected].transform.position;
+            spawned.GetComponent<Enemy>().hero = hero;
 
             currentCountBad -= startCountBadSpeed;
 
