@@ -8,10 +8,12 @@ public class Enemy : MonoBehaviour {
     public float speed;
 
     private Rigidbody2D rigidBody;
+    //private float initScaleX;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         rigidBody = GetComponent<Rigidbody2D>();
+        //initScaleX = transform.localScale.x;
     }
 	
 	// Update is called once per frame
@@ -34,6 +36,22 @@ public class Enemy : MonoBehaviour {
     */
         GetComponent<NavMeshAgent>().SetDestination(target.transform.position);
         GetComponent<NavMeshAgent>().updateRotation = false;
+        //Debug.Log("velocity.normalized.x "+ GetComponent<NavMeshAgent>().velocity.normalized.x);
+        if(canReverse)
+        {
+            canReverse = false;
+            int flip = (GetComponent<NavMeshAgent>().velocity.normalized).x > 0 ? -1 : 1;
+            transform.localScale = new Vector3(flip, transform.localScale.y, transform.localScale.z);
+            StartCoroutine(reverseTimer());
+        }
+    }
+
+    bool canReverse = true;
+
+    IEnumerator reverseTimer()
+    {
+        yield return new WaitForSeconds(0.2f);
+        canReverse = true;
     }
 
     void FixedUpdate()

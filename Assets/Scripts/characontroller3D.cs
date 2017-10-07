@@ -62,6 +62,14 @@ public class characontroller3D : MonoBehaviour {
         }
     }
 
+    void endDashing()
+    {
+        isDashing = false;
+        recover = false;
+        StartCoroutine(Wait());
+        dashTarget = Vector2.zero;
+    }
+
     // Update is called once per frame
     void FixedUpdate () {
         if (isDashing)
@@ -71,10 +79,7 @@ public class characontroller3D : MonoBehaviour {
             float distSqr = (dashTarget - transform.position).sqrMagnitude;
             if (distSqr < 0.1f)
             {
-                isDashing = false;
-                recover = false;
-                StartCoroutine(Wait());
-                dashTarget = Vector2.zero;
+                endDashing();
             }
             else
             {
@@ -145,4 +150,14 @@ public class characontroller3D : MonoBehaviour {
 		recover = true;
 	}
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (isDashing && collision.gameObject.CompareTag("Obstacle"))
+        {
+            endDashing();
+            Debug.Log("touch obstacle");
+            Vector2 dir = collision.transform.position - transform.position;
+            rigidBody.velocity = dir.normalized * -15;
+        }
+    }
 }
