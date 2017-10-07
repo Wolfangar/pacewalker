@@ -5,10 +5,12 @@ using UnityEngine;
 public class StaminaManager : MonoBehaviour {
     public int totalHealth, hitDamage, dashStamina;
     public float decreasingSpeed, currentHealth;
+	GameObject GameManager;
 
     private void Start()
     {
         currentHealth = totalHealth;
+		GameManager = GameObject.Find("GameManager");
     }
 
     private void Update()
@@ -27,6 +29,7 @@ public class StaminaManager : MonoBehaviour {
     public void dead()
     {
         Debug.Log(transform.name + " is dead, not a big surprise");
+		GameManager.GetComponent<Counter>().killedcounter += 1;
         Destroy(gameObject);
         //Time.timeScale = 0;
     }
