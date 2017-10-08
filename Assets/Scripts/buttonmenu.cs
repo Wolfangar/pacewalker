@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class buttonmenu : MonoBehaviour {
 
@@ -14,6 +15,16 @@ public class buttonmenu : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void levelThisLovingMachine()
+    {
+        SceneManager.LoadScene("Level");
+    }
+
+    public void exitThisShit()
+    {
+        Application.Quit();
+    }
 
 	public void clickbutton()
 	{
