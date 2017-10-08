@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 65697251214510118}
   - component: {fileID: 114509900928285676}
   - component: {fileID: 65391164167467800}
+  - component: {fileID: 114062117230522068}
   m_Layer: 0
   m_Name: Cynthia
   m_TagString: cynthia
@@ -87,6 +88,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114062117230522068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744287967726394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20c69aa4d43ab14cb420c6b1d90f246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalHealth: 100
+  dashStamina: 0
+  decreasingSpeed: 8
+  currentHealth: 0
+  counter: {fileID: 0}
+  isDead: 0
 --- !u!114 &114179434676052774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,7 +118,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   attackSpeed: 1.9
-  hitdmg: 0
+  hitdmg: 100
+  selfdmg: 30
   hit: 0
   presence: 0
   hero: {fileID: 0}

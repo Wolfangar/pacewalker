@@ -1,18 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class StaminaManager : MonoBehaviour {
-    public int totalHealth, dashStamina;
+    public int totalHealth;
     public float decreasingSpeed;
     [HideInInspector]
     public float currentHealth;
-	//GameObject GameManager;
-
+    //GameObject GameManager;
+    Animator anim;
+    NavMeshAgent navMesh;
+    [HideInInspector]
     public Counter counter;
+
+    [HideInInspector]
+    public bool isDead = false;
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
+        navMesh = GetComponent<NavMeshAgent>();
         currentHealth = totalHealth;
 		//GameManager = GameObject.Find("GameManager");
     }
@@ -26,22 +34,35 @@ public class StaminaManager : MonoBehaviour {
 
     private void checkHealth()
     {
-        if (currentHealth <= 0.0f)
+        if ((int) currentHealth <= 0.0f)
             dead();
     }
 
     public void dead()
     {
+        if (isDead)
+            return;
+        isDead = true;
         Debug.Log(transform.name + " is dead, not a big surprise");
         counter.killedcounter += 1;
-        Destroy(gameObject);
+        anim.SetBool("dead", isDead);
+        navMesh.isStopped = true;
+        navMesh.velocity = Vector3.zero;
+        navMesh.enabled = false;
+
+        //Destroy(gameObject);
         //Time.timeScale = 0;
+    }
+
+    public void destroyIt()
+    {
+        Destroy(this.gameObject);
     }
 
     public void loseHealth(float damage)
     {
         float newHealth = currentHealth - damage;
-        currentHealth = Mathf.Clamp(newHealth, 0.0f, totalHealth);
+        currentHealth = Mathf.Clamp(newHealth, -0, totalHealth);
         checkHealth();
     }
 

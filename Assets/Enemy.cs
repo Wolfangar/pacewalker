@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
-    public float speed, attackSpeed, hitdmg;
+    public float speed, attackSpeed, hitdmg, selfdmg;
     [HideInInspector]
 	public bool hit, presence;
 	Animator anim;
 	StaminaManager herostam;
+    StaminaManager selfstam;
     private Rigidbody2D rigidBody;
 	public GameObject hero;
     //private float initScaleX;
@@ -21,8 +22,12 @@ public class Enemy : MonoBehaviour {
     void Start () {
         rigidBody = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
-		herostam = hero.GetComponent<StaminaManager>();
+        selfstam = GetComponent<StaminaManager>();
+        herostam = hero.GetComponent<StaminaManager>();
         navMesh = GetComponent<NavMeshAgent>();
+
+        navMesh.updateRotation = false;
+
         //initScaleX = transform.localScale.x;
     }
 	
@@ -53,8 +58,9 @@ public class Enemy : MonoBehaviour {
             }
         }
     */
-        navMesh.SetDestination(hero.transform.position);
-        navMesh.updateRotation = false;
+        if(navMesh.isActiveAndEnabled)
+            navMesh.SetDestination(hero.transform.position);
+        
         //Debug.Log("velocity.normalized.x "+ GetComponent<NavMeshAgent>().velocity.normalized.x);
         if (canReverse && navMesh.velocity.normalized.sqrMagnitude != 0 && canAttack)
         {
@@ -85,7 +91,7 @@ public class Enemy : MonoBehaviour {
 	// comportement attaque
 	private void OnTriggerStay(Collider collision)
 	{
-        if (collision.gameObject == this)
+        if (collision.gameObject == this || selfstam.isDead)
             return;
 
         if (collision.gameObject.tag == "charac")
@@ -105,7 +111,8 @@ public class Enemy : MonoBehaviour {
 
         anim.SetBool("attack", true);
 
-        navMesh.isStopped = true;
+        if(navMesh.isActiveAndEnabled)
+            navMesh.isStopped = true;
         navMesh.velocity = Vector3.zero;
 		
 		if ((gameObject.tag == "cynthia"|| gameObject.tag == "joe") && presence == true)//if cac is true par exemple a la place
@@ -133,7 +140,9 @@ public class Enemy : MonoBehaviour {
 	//Carac d'attaque
 	void attackcac()
 	{
-		StartCoroutine(attackTimer());
+        selfstam.loseHealth(selfdmg);
+
+        StartCoroutine(attackTimer());
 	}
 
 	void attackrange()
@@ -144,7 +153,8 @@ public class Enemy : MonoBehaviour {
 	IEnumerator attackTimer()
 	{
 		yield return new WaitForSeconds(attackSpeed);
-        navMesh.isStopped = false;
+        if(navMesh.isActiveAndEnabled)
+            navMesh.isStopped = false;
         canAttack = true;
         Debug.Log("attack over");
     }
