@@ -31,6 +31,7 @@ public class characontroller3D : MonoBehaviour {
 	AudioSource src;
 	Animator anim;
     StaminaManager stam;
+	public GameObject starfx;
 
 	// Use this for initialization
 	void Start() {
@@ -56,8 +57,11 @@ public class characontroller3D : MonoBehaviour {
             Debug.Log("real damage hero");
             invicible = true;
             stam.loseHealth(dmg);
+			starfx.SetActive(true);
             StartCoroutine(timerInvicible());
+			
         }
+		
     }
 
     IEnumerator fadeInOut()
@@ -84,10 +88,12 @@ public class characontroller3D : MonoBehaviour {
         StopCoroutine(co);
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1.0f);
         invicible = false;
-    }
+		starfx.SetActive(false);
+
+	}
 
 
-private Vector3 lastVelo;
+	private Vector3 lastVelo;
 
     private void Dash()
     {

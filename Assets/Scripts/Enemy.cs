@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour {
     characontroller3D heroController;
     StaminaManager selfstam;
     private Rigidbody2D rigidBody;
-	public GameObject hero;
+	public GameObject hero, fxpunch;
 	public AudioClip hitsound, attacksound;
 	AudioSource src;
     //private float initScaleX;
@@ -92,7 +92,10 @@ public class Enemy : MonoBehaviour {
             heroController.tryDamage(hitdmg);
             //herostam.loseHealth(hitdmg);
 			src.PlayOneShot(hitsound);
+			fxpunch.SetActive(true);
+
         }
+
     }
 
     bool hasAttacked = false;
