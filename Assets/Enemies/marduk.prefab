@@ -237,7 +237,7 @@ MonoBehaviour:
   presence: 0
   hero: {fileID: 0}
   hitsound: {fileID: 8300000, guid: 1754cb9f5c65607459e1bfdcc176c2e7, type: 3}
-  attacksound: {fileID: 8300000, guid: 24fbd1a03f578b948b8e575a3d8e711e, type: 3}
+  attacksound: {fileID: 8300000, guid: 12c593fd12bfd4e4da7e37343ce0ee9f, type: 3}
 --- !u!114 &114016335849318768
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -181,14 +181,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.8
-  attackSpeed: 1.9
+  attackSpeed: 2.8
   hitdmg: 0
   selfdmg: 0
   hit: 0
   presence: 0
   hero: {fileID: 0}
   hitsound: {fileID: 8300000, guid: 1754cb9f5c65607459e1bfdcc176c2e7, type: 3}
-  attacksound: {fileID: 8300000, guid: 24fbd1a03f578b948b8e575a3d8e711e, type: 3}
+  attacksound: {fileID: 8300000, guid: b001b7e8a2995d847a1e58cd76ce99a8, type: 3}
 --- !u!114 &114509900928285676
 MonoBehaviour:
   m_ObjectHideFlags: 1
