@@ -81,12 +81,15 @@ public class Enemy : MonoBehaviour {
 
     private void checkHit()
     {
-        if(presence)
+        if(presence && !hasAttacked)
         {
+            hasAttacked = true;
             Debug.Log("damage");
             herostam.loseHealth(hitdmg);
         }
     }
+
+    bool hasAttacked = false;
 
 	// comportement attaque
 	private void OnTriggerStay(Collider collision)
@@ -140,6 +143,8 @@ public class Enemy : MonoBehaviour {
 	//Carac d'attaque
 	void attackcac()
 	{
+        hasAttacked = false;
+
         selfstam.loseHealth(selfdmg);
 
         StartCoroutine(attackTimer());
