@@ -76,7 +76,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1670248881073576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.3935394, y: 1.900523, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4677119698455750}
@@ -132,8 +132,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.67552, y: 2.5045004, z: 0.7809963}
-  m_Center: {x: -0.33775997, y: -0.22438681, z: 0.0679903}
+  m_Size: {x: 2.0364265, y: 2.5045004, z: 0.7809963}
+  m_Center: {x: -0.5182133, y: -0.22438681, z: 0.0679903}
 --- !u!82 &82357181483045052
 AudioSource:
   m_ObjectHideFlags: 1
@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20c69aa4d43ab14cb420c6b1d90f246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalHealth: 100
-  decreasingSpeed: 0
+  totalHealth: 90
+  decreasingSpeed: 3
   currentHealth: 0
   deathsound: {fileID: 8300000, guid: 5df12bac62616b24281fa4702ec22dc1, type: 3}
   counter: {fileID: 0}
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   attackSpeed: 1.9
-  hitdmg: 100
+  hitdmg: 200
   selfdmg: 30
   hit: 0
   presence: 0
@@ -331,8 +331,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.9
-  m_Speed: 3
-  m_Acceleration: 3
+  m_Speed: 5
+  m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 150
   m_StoppingDistance: 0
@@ -356,7 +356,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 8d67486c981163e4b837585720f9e965, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

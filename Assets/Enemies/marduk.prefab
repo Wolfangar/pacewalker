@@ -320,8 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20c69aa4d43ab14cb420c6b1d90f246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalHealth: 100
-  decreasingSpeed: 8
+  totalHealth: 90
+  decreasingSpeed: 3
   currentHealth: 0
   deathsound: {fileID: 8300000, guid: 5df12bac62616b24281fa4702ec22dc1, type: 3}
   counter: {fileID: 0}
@@ -363,8 +363,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.8
   attackSpeed: 2.2
-  hitdmg: 0
-  selfdmg: 0
+  hitdmg: 200
+  selfdmg: 30
   hit: 0
   presence: 0
   hero: {fileID: 0}
@@ -392,8 +392,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.9
-  m_Speed: 1
-  m_Acceleration: 1
+  m_Speed: 4
+  m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0

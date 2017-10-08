@@ -27,12 +27,12 @@ public class dashbutton : MonoBehaviour
 
 		if (recover == true)
 		{
-			Debug.Log("Je montre l'image");
+			//Debug.Log("Je montre l'image");
 			img.enabled = true;
 		}
 		else
 		{
-			Debug.Log("Je cache l'image");
+			//Debug.Log("Je cache l'image");
 			img.enabled = false;
 		}
 

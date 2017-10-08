@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class buttonmenu : MonoBehaviour {
 
-	AudioSource src;
+	AudioSource[] src;
 	// Use this for initialization
 	void Start () {
-		src = GetComponent<AudioSource>();
-	}
+		src = transform.parent.GetComponents<AudioSource>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,17 +18,14 @@ public class buttonmenu : MonoBehaviour {
 
     public void levelThisLovingMachine()
     {
-        SceneManager.LoadScene("Level");
+        src[0].Play();
+        SceneManager.LoadScene("final");
     }
 
     public void exitThisShit()
     {
+        src[0].Play();
         Application.Quit();
     }
-
-	public void clickbutton()
-	{
-
-		src.Play();
-	}
+    
 }

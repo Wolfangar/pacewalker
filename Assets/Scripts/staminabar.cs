@@ -27,7 +27,7 @@ public class staminabar : MonoBehaviour {
 		
 		barstamina = staminacur.currentHealth / staminacur.totalHealth;
 		rect.sizeDelta = new Vector2 (rect.sizeDelta.x, maxstamina*barstamina);
-		Debug.Log("result" + rect.sizeDelta.y);
+		//Debug.Log("result" + rect.sizeDelta.y);
 
 		if (staminacur.currentHealth <= staminacur.totalHealth/4 )
 		{

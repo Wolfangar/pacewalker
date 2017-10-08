@@ -33,6 +33,8 @@ public class characontroller3D : MonoBehaviour {
     StaminaManager stam;
 	public GameObject starfx;
 
+    public GameObject retryCanvas;
+
 	// Use this for initialization
 	void Start() {
 		rigidBody = GetComponent<Rigidbody>();
@@ -57,9 +59,16 @@ public class characontroller3D : MonoBehaviour {
             Debug.Log("real damage hero");
             invicible = true;
             stam.loseHealth(dmg);
-			starfx.SetActive(true);
-            StartCoroutine(timerInvicible());
-			
+            if (stam.isDead)
+            {
+                Debug.Log("retryyyy");
+                retryCanvas.SetActive(true);
+            }
+            else
+            {
+                starfx.SetActive(true);
+                StartCoroutine(timerInvicible());
+            }
         }
 		
     }
@@ -128,14 +137,20 @@ public class characontroller3D : MonoBehaviour {
 
     private void Update()
     {
+       
         if(stam.isDead)
         {
+            if(!retryCanvas.activeSelf)
+                retryCanvas.SetActive(true);
+            /*
             if(Input.GetButton("Dash"))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
+            */
             return;
         }
+        
 
         if (Input.GetButton("Fire1") || Input.GetButton("Fire2") || Input.GetButton("Fire3") || Input.GetButton("Fire4") || Input.GetButton("Fire5"))
         {
@@ -169,7 +184,12 @@ public class characontroller3D : MonoBehaviour {
 			src[0].PlayOneShot(dash = dashsounds[Random.Range(0,dashsounds.Length)]);
 			anim.SetBool("Dash", true);
             stam.loseHealth(dashDmg);
-            Dash();
+            if (stam.isDead)
+            {
+                retryCanvas.SetActive(true);
+            }
+            else
+                Dash();
         }
 
 		if (velocity.x > 0)
