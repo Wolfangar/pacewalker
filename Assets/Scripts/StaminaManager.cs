@@ -11,6 +11,8 @@ public class StaminaManager : MonoBehaviour {
     //GameObject GameManager;
     Animator anim;
     NavMeshAgent navMesh;
+	public AudioClip deathsound;
+	AudioSource src;
     [HideInInspector]
     public Counter counter;
 
@@ -22,6 +24,7 @@ public class StaminaManager : MonoBehaviour {
         anim = GetComponent<Animator>();
         navMesh = GetComponent<NavMeshAgent>();
         currentHealth = totalHealth;
+		src = GetComponent<AudioSource>();
 		//GameManager = GameObject.Find("GameManager");
     }
 
@@ -42,7 +45,8 @@ public class StaminaManager : MonoBehaviour {
     {
         if (isDead)
             return;
-        isDead = true;
+		src.PlayOneShot(deathsound);
+		isDead = true;
         Debug.Log(transform.name + " is dead, not a big surprise");
         anim.SetBool("dead", isDead);
         if(navMesh)
@@ -65,6 +69,7 @@ public class StaminaManager : MonoBehaviour {
 
     public void loseHealth(float damage)
     {
+		//src.PlayOneShot(hitsound);
         float newHealth = currentHealth - damage;
         currentHealth = Mathf.Clamp(newHealth, -0, totalHealth);
         checkHealth();

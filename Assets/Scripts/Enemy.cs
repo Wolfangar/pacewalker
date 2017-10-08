@@ -9,9 +9,12 @@ public class Enemy : MonoBehaviour {
 	public bool hit, presence;
 	Animator anim;
 	StaminaManager herostam;
+    characontroller3D heroController;
     StaminaManager selfstam;
     private Rigidbody2D rigidBody;
 	public GameObject hero;
+	public AudioClip hitsound, attacksound;
+	AudioSource src;
     //private float initScaleX;
 
     private NavMeshAgent navMesh;
@@ -24,8 +27,9 @@ public class Enemy : MonoBehaviour {
 		anim = GetComponent<Animator>();
         selfstam = GetComponent<StaminaManager>();
         herostam = hero.GetComponent<StaminaManager>();
+        heroController = hero.GetComponent<characontroller3D>();
         navMesh = GetComponent<NavMeshAgent>();
-
+		src = GetComponent<AudioSource>();
         navMesh.updateRotation = false;
 
         //initScaleX = transform.localScale.x;
@@ -81,12 +85,17 @@ public class Enemy : MonoBehaviour {
 
     private void checkHit()
     {
-        if(presence)
+        if(presence && !hasAttacked)
         {
+            hasAttacked = true;
             Debug.Log("damage");
-            herostam.loseHealth(hitdmg);
+            heroController.tryDamage(hitdmg);
+            //herostam.loseHealth(hitdmg);
+			src.PlayOneShot(hitsound);
         }
     }
+
+    bool hasAttacked = false;
 
 	// comportement attaque
 	private void OnTriggerStay(Collider collision)
@@ -110,7 +119,7 @@ public class Enemy : MonoBehaviour {
         canAttack = false;
 
         anim.SetBool("attack", true);
-
+	
         if(navMesh.isActiveAndEnabled)
             navMesh.isStopped = true;
         navMesh.velocity = Vector3.zero;
@@ -140,11 +149,18 @@ public class Enemy : MonoBehaviour {
 	//Carac d'attaque
 	void attackcac()
 	{
+        hasAttacked = false;
+
         selfstam.loseHealth(selfdmg);
 
         StartCoroutine(attackTimer());
 	}
 
+	public void playattacksound()
+	{
+		src.PlayOneShot(attacksound);
+
+	}
 	void attackrange()
 	{
 
