@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4962353931115612}
   - component: {fileID: 212093851851728454}
   - component: {fileID: 114783158566197294}
+  - component: {fileID: 114581617518993026}
   m_Layer: 0
   m_Name: FX_Blood
   m_TagString: Untagged
@@ -41,6 +42,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114581617518993026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1505482448920698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffb5594746f25e0498a40e3639cbb012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeSpeed: 2
+  wait: 2
 --- !u!114 &114783158566197294
 MonoBehaviour:
   m_ObjectHideFlags: 1

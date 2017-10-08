@@ -130,10 +130,17 @@ public class characontroller3D : MonoBehaviour {
     {
         if(stam.isDead)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetButton("Dash"))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
+            return;
+        }
+
+        if (Input.GetButton("Fire1") || Input.GetButton("Fire2") || Input.GetButton("Fire3") || Input.GetButton("Fire4") || Input.GetButton("Fire5"))
+        {
+            Debug.Log("suicide");
+            stam.killMe();
             return;
         }
 
@@ -160,7 +167,7 @@ public class characontroller3D : MonoBehaviour {
 			src.Stop();
 		}
 
-		if (velocity.sqrMagnitude != 0 && Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)//no dash without moving or let player dash to facing direction?
+		if (velocity.sqrMagnitude != 0 && Input.GetButton("Dash") && !isDashing && recover)//no dash without moving or let player dash to facing direction?
         {
 			src.PlayOneShot(dash = dashsounds[Random.Range(0,dashsounds.Length)]);
 			anim.SetBool("Dash", true);
