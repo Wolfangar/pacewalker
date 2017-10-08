@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class characontroller3D : MonoBehaviour {
 
@@ -19,7 +20,7 @@ public class characontroller3D : MonoBehaviour {
     public float dashDistance = 3;
     public float recoverTime = 0.5f;
     public float dashDmg;
-	public AudioClip dashsound1, dashsound2, dashsound3;
+	public AudioClip dashsound1, dashsound2, dashsound3, footsteps;
 	[HideInInspector]
 	AudioClip dash;
 	AudioClip[] dashsounds;
@@ -76,31 +77,39 @@ private Vector3 lastVelo;
 
     private void Update()
     {
+        if(stam.isDead)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            return;
+        }
+
         velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * speed;
         if (velocity.sqrMagnitude != 0)
             lastVelo = velocity;
 
-        if (velocity.x != 0)
+
+		if (velocity != new Vector3 (0,0,0))
 		{
-			//anim.SetBool("Movehoriz", true);
 			anim.SetBool("Move", true);
 
-		}
-	
-		if (velocity.z != 0)
-		{
-			anim.SetBool("Movevert", true);
-			anim.SetBool("Move", true);
+			if (src.clip != footsteps)
+			{
+				src.clip = footsteps;
+				src.Play();
+			}
 
 		}
-		if (velocity == new Vector3 (0,0,0))
+		else
 		{
-			anim.SetBool("Movehoriz", false);
-			anim.SetBool("Movevert", false);
 			anim.SetBool("Move", false);
-
+			src.clip = null;
+			src.Stop();
 		}
-		if (Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)
+
+		if (velocity.sqrMagnitude != 0 && Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)//no dash without moving or let player dash to facing direction?
         {
 			src.PlayOneShot(dash = dashsounds[Random.Range(0,dashsounds.Length)]);
 			anim.SetBool("Dash", true);
@@ -129,6 +138,11 @@ private Vector3 lastVelo;
 
     // Update is called once per frame
     void FixedUpdate () {
+        if (stam.isDead)
+        {
+            return;
+        }
+
         if (isDashing)
         {
             rigidBody.velocity = Vector2.zero;
@@ -204,6 +218,7 @@ private Vector3 lastVelo;
 	IEnumerator Wait()
 	{
 		yield return new WaitForSeconds(recoverTime);
+		
 		recover = true;
 	}
 

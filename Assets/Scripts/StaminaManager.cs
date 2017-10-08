@@ -44,11 +44,15 @@ public class StaminaManager : MonoBehaviour {
             return;
         isDead = true;
         Debug.Log(transform.name + " is dead, not a big surprise");
-        counter.killedcounter += 1;
         anim.SetBool("dead", isDead);
-        navMesh.isStopped = true;
-        navMesh.velocity = Vector3.zero;
-        navMesh.enabled = false;
+        if(navMesh)
+        {
+            counter.killedcounter += 1;
+            navMesh.isStopped = true;
+            navMesh.velocity = Vector3.zero;
+            navMesh.enabled = false;
+        }
+        
 
         //Destroy(gameObject);
         //Time.timeScale = 0;
