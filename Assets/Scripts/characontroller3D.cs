@@ -131,7 +131,7 @@ private Vector3 lastVelo;
             return;
         }
 
-        if (Input.GetButton("Fire1") || Input.GetButton("Fire2") || Input.GetButton("Fire3"))
+        if (Input.GetButton("Fire1") || Input.GetButton("Fire2") || Input.GetButton("Fire3") || Input.GetButton("Fire4") || Input.GetButton("Fire5"))
         {
             Debug.Log("suicide");
             stam.killMe();
