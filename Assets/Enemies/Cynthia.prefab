@@ -183,7 +183,7 @@ MonoBehaviour:
   totalHealth: 100
   decreasingSpeed: 8
   currentHealth: 0
-  deathsound: {fileID: 0}
+  deathsound: {fileID: 8300000, guid: 5df12bac62616b24281fa4702ec22dc1, type: 3}
   counter: {fileID: 0}
   isDead: 0
 --- !u!114 &114179434676052774
