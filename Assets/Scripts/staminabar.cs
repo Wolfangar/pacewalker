@@ -10,11 +10,16 @@ public class staminabar : MonoBehaviour {
 	float maxstamina;
 	StaminaManager staminacur;
 	RectTransform rect;
+	public AudioClip alert;
+	AudioSource src;
+	bool notalert = true;
+
 	// Use this for initialization
 	void Start () {
 		staminacur = controller.GetComponent<StaminaManager>();
 		rect = GetComponent<RectTransform>();
 		maxstamina = rect.sizeDelta.y;
+		src = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame

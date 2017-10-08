@@ -10,10 +10,7 @@ public class Pile : MonoBehaviour {
 
     private void Start()
     {
-        if(tag == "grosse_pile")
-        {
-            GetComponent<ParticleSystem>().startColor = Color.red;
-        }
+       
     }
 
     private void OnTriggerEnter(Collider collision)
