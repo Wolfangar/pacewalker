@@ -76,6 +76,11 @@ private Vector3 lastVelo;
 
     private void Update()
     {
+        if(stam.isDead)
+        {
+            return;
+        }
+
         velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * speed;
         if (velocity.sqrMagnitude != 0)
             lastVelo = velocity;
@@ -129,6 +134,11 @@ private Vector3 lastVelo;
 
     // Update is called once per frame
     void FixedUpdate () {
+        if (stam.isDead)
+        {
+            return;
+        }
+
         if (isDashing)
         {
             rigidBody.velocity = Vector2.zero;
