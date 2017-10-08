@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class characontroller3D : MonoBehaviour {
 
@@ -78,6 +79,10 @@ private Vector3 lastVelo;
     {
         if(stam.isDead)
         {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
             return;
         }
 
@@ -105,7 +110,7 @@ private Vector3 lastVelo;
 			anim.SetBool("Move", false);
 
 		}
-		if (Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)
+		if (velocity.sqrMagnitude != 0 && Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)//no dash without moving or let player dash to facing direction?
         {
 			src.PlayOneShot(dash = dashsounds[Random.Range(0,dashsounds.Length)]);
 			anim.SetBool("Dash", true);
