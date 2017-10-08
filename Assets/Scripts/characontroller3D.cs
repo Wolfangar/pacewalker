@@ -19,18 +19,29 @@ public class characontroller3D : MonoBehaviour {
     public float dashDistance = 3;
     public float recoverTime = 0.5f;
     public float dashDmg;
+	public AudioClip dashsound1, dashsound2, dashsound3;
+	[HideInInspector]
+	AudioClip dash;
+	AudioClip[] dashsounds;
 
+
+	AudioSource src;
 	Animator anim;
     StaminaManager stam;
 
-    // Use this for initialization
-    void Start () {
-        rigidBody = GetComponent<Rigidbody>();
+	// Use this for initialization
+	void Start() {
+		rigidBody = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator>();
-        stam = GetComponent<StaminaManager>();
-    }
+		stam = GetComponent<StaminaManager>();
+		src = GetComponent<AudioSource>();
+		dashsounds = new AudioClip[] {
+		dashsound1, dashsound2, dashsound3 };
+	
 
-    private Vector3 lastVelo;
+}
+
+private Vector3 lastVelo;
 
     private void Dash()
     {
@@ -91,6 +102,7 @@ public class characontroller3D : MonoBehaviour {
 		}
 		if (Input.GetKeyDown(KeyCode.Space) && !isDashing && recover)
         {
+			src.PlayOneShot(dash = dashsounds[Random.Range(0,dashsounds.Length)]);
 			anim.SetBool("Dash", true);
             stam.loseHealth(dashDmg);
             Dash();
