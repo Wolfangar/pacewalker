@@ -5,30 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class characontroller3D : MonoBehaviour {
 
-    [HideInInspector]
+	[HideInInspector]
 	public bool camtrigger = false;
-    [HideInInspector]
-    public float xblock;
-    
-    private Rigidbody rigidBody;
-    private Vector3 dashTarget;
+	[HideInInspector]
+	public float xblock;
+
+	private Rigidbody rigidBody;
+	private Vector3 dashTarget;
 	[HideInInspector]
 	public bool recover = true;
 	[HideInInspector]
 	public bool isDashing = false;
 
-    public float speed;
-    public float dashSpeed = 20;
-    public float dashDistance = 3;
-    public float recoverTime = 0.5f;
-    public float dashDmg;
+	public float speed;
+	public float dashSpeed = 20;
+	public float dashDistance = 3;
+	public float recoverTime = 0.5f;
+	public float dashDmg;
 	public AudioClip dashsound1, dashsound2, dashsound3, footsteps;
 	[HideInInspector]
 	AudioClip dash;
 	AudioClip[] dashsounds;
 
-    SpriteRenderer sprite;
-	AudioSource src;
+	SpriteRenderer sprite;
+	AudioSource [] src;
 	Animator anim;
     StaminaManager stam;
 	public GameObject starfx;
@@ -38,7 +38,7 @@ public class characontroller3D : MonoBehaviour {
 		rigidBody = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator>();
 		stam = GetComponent<StaminaManager>();
-		src = GetComponent<AudioSource>();
+		src = GetComponents<AudioSource>();
         sprite = GetComponent<SpriteRenderer>();
         dashsounds = new AudioClip[] {
 		dashsound1, dashsound2, dashsound3 };
@@ -153,23 +153,20 @@ public class characontroller3D : MonoBehaviour {
 		{
 			anim.SetBool("Move", true);
 
-			if (src.clip != footsteps )
-			{
-				src.clip = footsteps;
-				src.Play();
-			}
+			if (!src[1].isPlaying)
+				src[1].Play();
+		
 
 		}
 		else
 		{
 			anim.SetBool("Move", false);
-			src.clip = null;
-			src.Stop();
+			src[1].Stop();
 		}
 
 		if (velocity.sqrMagnitude != 0 && Input.GetButton("Dash") && !isDashing && recover)//no dash without moving or let player dash to facing direction?
         {
-			src.PlayOneShot(dash = dashsounds[Random.Range(0,dashsounds.Length)]);
+			src[0].PlayOneShot(dash = dashsounds[Random.Range(0,dashsounds.Length)]);
 			anim.SetBool("Dash", true);
             stam.loseHealth(dashDmg);
             Dash();
