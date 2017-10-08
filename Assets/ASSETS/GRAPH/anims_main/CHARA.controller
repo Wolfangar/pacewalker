@@ -13,31 +13,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Movevert
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Movehoriz
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Move
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: dead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -350,13 +350,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102793561402756632}
-    m_Position: {x: 480, y: 12, z: 0}
+    m_Position: {x: 528, y: 72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102359910752117568}
-    m_Position: {x: 96, y: 12, z: 0}
+    m_Position: {x: 192, y: 48, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102549950823952510}
-    m_Position: {x: 288, y: -72, z: 0}
+    m_Position: {x: 336, y: -72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102164737589181310}
     m_Position: {x: 288, y: -300, z: 0}

@@ -922,6 +922,16 @@ Prefab:
       propertyPath: counter
       value: 
       objectReference: {fileID: 794981748}
+    - target: {fileID: 114265133288254358, guid: 273a20583625ff844b39458a63e5e73d,
+        type: 2}
+      propertyPath: deathsound
+      value: 
+      objectReference: {fileID: 8300000, guid: 89144047514ba40469fb167cedbd5b47, type: 3}
+    - target: {fileID: 114265133288254358, guid: 273a20583625ff844b39458a63e5e73d,
+        type: 2}
+      propertyPath: hitsound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c2ae1f4da05aea48a0e0dea26e1bf4b, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 273a20583625ff844b39458a63e5e73d, type: 2}
   m_IsPrefabParent: 0
