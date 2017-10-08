@@ -49,7 +49,7 @@ public class characontroller3D : MonoBehaviour {
 
     public void tryDamage(float dmg)
     {
-        if (!invicible)
+        if (!invicible && !stam.isDead)
         {
             Debug.Log("real damage hero");
             invicible = true;
