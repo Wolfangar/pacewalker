@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
 	public bool hit, presence;
 	Animator anim;
 	StaminaManager herostam;
+    characontroller3D heroController;
     StaminaManager selfstam;
     private Rigidbody2D rigidBody;
 	public GameObject hero;
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour {
 		anim = GetComponent<Animator>();
         selfstam = GetComponent<StaminaManager>();
         herostam = hero.GetComponent<StaminaManager>();
+        heroController = hero.GetComponent<characontroller3D>();
         navMesh = GetComponent<NavMeshAgent>();
 		src = GetComponent<AudioSource>();
         navMesh.updateRotation = false;
@@ -87,7 +89,8 @@ public class Enemy : MonoBehaviour {
         {
             hasAttacked = true;
             Debug.Log("damage");
-            herostam.loseHealth(hitdmg);
+            heroController.tryDamage(hitdmg);
+            //herostam.loseHealth(hitdmg);
 			src.PlayOneShot(hitsound);
         }
     }
