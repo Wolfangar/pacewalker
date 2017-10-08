@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 65697251214510118}
   - component: {fileID: 114509900928285676}
   - component: {fileID: 65391164167467800}
+  - component: {fileID: 114920060582748290}
   m_Layer: 0
   m_Name: Joe
   m_TagString: joe
@@ -56,8 +57,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.67552, y: 2.5045004, z: 0.7809963}
-  m_Center: {x: -0.33775997, y: -0.22438681, z: 0.0679903}
+  m_Size: {x: 1.67552, y: 2.6645403, z: 0.7809963}
+  m_Center: {x: -0.33775997, y: -0.30440688, z: 0.0679903}
 --- !u!65 &65697251214510118
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -68,8 +69,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2105068, y: 1.9766369, z: 0.5211885}
-  m_Center: {x: -0.1052534, y: -0.48831856, z: 0.03365028}
+  m_Size: {x: 1.2105068, y: 2.1216762, z: 0.5211885}
+  m_Center: {x: -0.1052534, y: -0.56083834, z: 0.03365028}
 --- !u!95 &95597764529859338
 Animator:
   serializedVersion: 3
@@ -101,6 +102,7 @@ MonoBehaviour:
   speed: 0.8
   attackSpeed: 1.9
   hitdmg: 0
+  selfdmg: 0
   hit: 0
   presence: 0
   hero: {fileID: 0}
@@ -116,6 +118,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundZ: 18
+--- !u!114 &114920060582748290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744287967726394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20c69aa4d43ab14cb420c6b1d90f246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalHealth: 100
+  decreasingSpeed: 8
+  currentHealth: 0
+  counter: {fileID: 0}
+  isDead: 0
 --- !u!195 &195711611566468558
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -134,7 +152,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.9
-  m_BaseOffset: 1.49
+  m_BaseOffset: 1.66
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!212 &212846534110015754

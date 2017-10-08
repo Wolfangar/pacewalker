@@ -8,18 +8,30 @@ public class SpawnManager : MonoBehaviour {
 
     public GameObject hero;
 
-    public GameObject templateBad;
-    public GameObject templateGood;
+    //Same order (please)
+    public GameObject[] templateBad;
+    public float[] templateBadProba;
+    public GameObject[] templateGood;
+    public float[] templateGoodProba;
 
     private List<GameObject> listSpawnBad = new List<GameObject>();
     private List<GameObject> listSpawnGood = new List<GameObject>();
     private float currentCountBad;
 
-    public float startCountBad = 5.0f;
-    public float startCountBadSpeed = 0.2f;
-    public float countBadMin = 2.0f;
+    public float startCountBad = 5.0f;//time between spawn
+    public float startCountBadSpeed = 0.2f;//decreasing speed
+    public float countBadMin = 2.0f;//min time between spawn
 
-    public float spawnBadDistance = 10;
+    public float spawnBadDistance = 12.0f;//spawn distance to instanciate enemy
+
+    //
+    public int enemyPerWave = 3;
+    public int enemyPerWaveIncreasing = 1;
+
+    public float timeBetweenWave = 5.0f;
+    public float timeBetweenWaveDecreasing = 0.3f;
+    public float timeBetweenWaveMin = 2.0f;
+    //
 
     public Counter counter;
 
@@ -37,6 +49,7 @@ public class SpawnManager : MonoBehaviour {
         }
             
         currentCountBad = startCountBad;
+        currentTimeBetweenWave = timeBetweenWave;
 
         StartCoroutine(spawnBadThings());
         StartCoroutine(spawnGoodThings());
@@ -59,6 +72,7 @@ public class SpawnManager : MonoBehaviour {
 
         while (true)
         {
+            //Spawn
             List<GameObject> tempList = new List<GameObject>();
             int i = 0;
             foreach (GameObject spawn in listSpawnGood)
@@ -82,11 +96,12 @@ public class SpawnManager : MonoBehaviour {
             
             availablePileSpawns[listSpawnGood.IndexOf(tempList[indexSelected])] = false;
 
-            int type = Random.Range(0, 2);
-
+            //Proba good
+            int indexGood = Choose(templateGoodProba);//0 et 1 possible en result
+            
             //Init + instanciate
-            GameObject pile = Instantiate(templateGood);
-            pile.tag = type == 0 ? "petite_pile" : "grosse_pile";
+            GameObject pile = Instantiate(templateGood[indexGood]);
+            //pile.tag = indexGood == 0 ? "petite_pile" : "grosse_pile";
 
             pile.transform.position = tempList[indexSelected].transform.position;
             Pile pileScript = pile.GetComponent<Pile>();
@@ -98,12 +113,20 @@ public class SpawnManager : MonoBehaviour {
         }
     }
 
+    private int currentEnemySpawned = 0;
+    private float currentTimeBetweenWave;
+
+    [HideInInspector]
+    public int numberWave = 0;
+
     IEnumerator spawnBadThings()
     {
-        yield return new WaitForSeconds(currentCountBad);
+        yield return new WaitForSeconds(currentTimeBetweenWave);
+        Debug.Log("wave " + numberWave + " starto");
 
         while (true)
         {
+            //Spawn
             List<GameObject> tempList = new List<GameObject>();
             foreach(GameObject spawn in listSpawnBad)
             {
@@ -123,7 +146,10 @@ public class SpawnManager : MonoBehaviour {
             int numberBad = tempList.Count;
             int indexSelected = Random.Range(0, numberBad);
 
-            GameObject spawned = Instantiate(templateBad);
+            //Index of the enemy
+            int indexEnemy = Choose(templateBadProba);
+
+            GameObject spawned = Instantiate(templateBad[indexEnemy]);
             spawned.transform.position = tempList[indexSelected].transform.position;
             spawned.GetComponent<Enemy>().hero = hero;
             spawned.GetComponent<StaminaManager>().counter = counter;
@@ -132,7 +158,49 @@ public class SpawnManager : MonoBehaviour {
 
             currentCountBad = Mathf.Clamp(startCountBad, countBadMin, startCountBad);
 
-            yield return new WaitForSeconds(currentCountBad);
+            currentEnemySpawned++;
+            if(currentEnemySpawned >= enemyPerWave)//Wave finished
+            {
+                Debug.Log("wave "+ numberWave + " finished");
+                numberWave++;
+
+                enemyPerWave += enemyPerWaveIncreasing;
+                Debug.Log("enemyPerWave " + enemyPerWave);
+                currentEnemySpawned = 0;
+
+                currentTimeBetweenWave -= timeBetweenWaveDecreasing;
+                currentTimeBetweenWave = Mathf.Clamp(currentTimeBetweenWave, timeBetweenWaveMin, timeBetweenWave);
+                Debug.Log("currentTimeBetweenWave " + currentTimeBetweenWave);
+
+                yield return new WaitForSeconds(currentTimeBetweenWave);
+            }
+            else
+            {
+                yield return new WaitForSeconds(currentCountBad);
+            }
         }
+    }
+
+    //Choosing Items with Different Probabilities, return index chosen
+    private int Choose(float[] probs)
+    {
+        float total = 0;
+        foreach (float elem in probs)
+        {
+            total += elem;
+        }
+        float randomPoint = Random.value * total;
+        for (int i = 0; i < probs.Length; i++)
+        {
+            if (randomPoint < probs[i])
+            {
+                return i;
+            }
+            else
+            {
+                randomPoint -= probs[i];
+            }
+        }
+        return probs.Length - 1;
     }
 }
