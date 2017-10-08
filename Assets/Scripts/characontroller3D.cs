@@ -12,8 +12,10 @@ public class characontroller3D : MonoBehaviour {
     
     private Rigidbody rigidBody;
     private Vector3 dashTarget;
-    private bool recover = true;
-    private bool isDashing = false;
+	[HideInInspector]
+	public bool recover = true;
+	[HideInInspector]
+	public bool isDashing = false;
 
     public float speed;
     public float dashSpeed = 20;
@@ -138,7 +140,7 @@ private Vector3 lastVelo;
 		{
 			anim.SetBool("Move", true);
 
-			if (src.clip != footsteps)
+			if (src.clip != footsteps )
 			{
 				src.clip = footsteps;
 				src.Play();

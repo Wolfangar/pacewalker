@@ -149,7 +149,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -334,9 +334,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20c69aa4d43ab14cb420c6b1d90f246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalHealth: 1000000
+  totalHealth: 800
   decreasingSpeed: 1
   currentHealth: 0
+  deathsound: {fileID: 8300000, guid: 89144047514ba40469fb167cedbd5b47, type: 3}
   counter: {fileID: 0}
   isDead: 0
 --- !u!114 &114335812410566108
@@ -379,11 +380,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camtrigger: 0
   xblock: 0
+  recover: 1
   speed: 5
   dashSpeed: 20
   dashDistance: 3
   recoverTime: 1
-  dashDmg: 0
+  dashDmg: 200
   dashsound1: {fileID: 8300000, guid: f40030b08ab2d1c46bfe059dab077bbc, type: 3}
   dashsound2: {fileID: 8300000, guid: 24837e0415d9deb40b890b9264083e71, type: 3}
   dashsound3: {fileID: 8300000, guid: 368ed7954492c8848821e0e32d19d76f, type: 3}

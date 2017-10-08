@@ -9,14 +9,14 @@ public class dashbutton : MonoBehaviour
 	public GameObject controller;
 	public bool recover;
 	Image img;
-	characontroller ctrl;
+	characontroller3D ctrl;
 
 	// Use this for initialization
 	void Start()
 	{
 
 
-		ctrl = controller.GetComponent<characontroller>();
+		ctrl = controller.GetComponent<characontroller3D>();
 		img = GetComponent<Image>();
 	}
 
