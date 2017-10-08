@@ -38,17 +38,18 @@ public class StaminaManager : MonoBehaviour {
         currentHealth = Mathf.Clamp(currentHealth, 0.0f, totalHealth);
         checkHealth();
 
-        if(templateBlood != null && (float) currentHealth / totalHealth < 0.2f)
+        if(templateBlood != null && (float) currentHealth / totalHealth < 0.25f)
         {
             if(coBlood == null)
                 coBlood = StartCoroutine(timerFXBlood());
         }
         else if(coBlood != null)
         {
-            coBlood = null;
             StopCoroutine(coBlood);
-        }
-    }
+			coBlood = null;
+
+		}
+	}
 
     IEnumerator timerFXBlood()
     {
