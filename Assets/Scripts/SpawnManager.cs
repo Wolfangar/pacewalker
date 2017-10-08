@@ -36,6 +36,8 @@ public class SpawnManager : MonoBehaviour {
 
     public Counter counter;
 
+    private float currentCountBadDecreasingWave;
+
     private List<bool> availablePileSpawns = new List<bool>();
 
     // Use this for initialization
@@ -51,6 +53,7 @@ public class SpawnManager : MonoBehaviour {
             
         currentCountBad = startCountBad;
         currentTimeBetweenWave = timeBetweenWave;
+        currentCountBadDecreasingWave = startCountBadDecreasingWave;
 
         StartCoroutine(spawnBadThings());
         StartCoroutine(spawnGoodThings());
@@ -174,8 +177,8 @@ public class SpawnManager : MonoBehaviour {
                 Debug.Log("currentTimeBetweenWave " + currentTimeBetweenWave);
 
                 currentCountBad = startCountBad;
-                currentCountBad -= startCountBadDecreasingWave;
-                startCountBadDecreasingWave += startCountBadDecreasingWave;
+                currentCountBad -= currentCountBadDecreasingWave;
+                currentCountBadDecreasingWave += startCountBadDecreasingWave;
                 currentCountBad = Mathf.Clamp(currentCountBad, countBadMin, startCountBad);
                 Debug.Log("currentCountBad " + currentCountBad);
 
