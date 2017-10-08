@@ -12,7 +12,7 @@ public class staminabar : MonoBehaviour {
 	RectTransform rect;
 	public AudioClip alert;
 	AudioSource src;
-	bool notalert = true;
+	bool notalert= true, soundplayed =false;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +28,25 @@ public class staminabar : MonoBehaviour {
 		barstamina = staminacur.currentHealth / staminacur.totalHealth;
 		rect.sizeDelta = new Vector2 (rect.sizeDelta.x, maxstamina*barstamina);
 		Debug.Log("result" + rect.sizeDelta.y);
+
+		if (staminacur.currentHealth <= staminacur.totalHealth/4 )
+		{
+			notalert = false;
+		}
+		else
+		{
+			notalert = true;
+			soundplayed = false;
+		}
+
+		if (notalert == false && soundplayed == false )
+		{
+			src.PlayOneShot(alert);
+			soundplayed = true;
+
+		}
+
+
 	
 		
 	}
