@@ -121,15 +121,11 @@ public class Enemy : MonoBehaviour {
             navMesh.isStopped = true;
         navMesh.velocity = Vector3.zero;
 		
-		if ((gameObject.tag == "cynthia"|| gameObject.tag == "joe") && presence == true)//if cac is true par exemple a la place
+		if (presence == true)//if cac is true par exemple a la place
 		{
 			attackcac();
 		}
-		if ((gameObject.tag == "marduk") && presence == true)
-		{
-			attackrange();
-		}
-
+	
 	}
 
 	private void OnTriggerExit(Collider collision)
@@ -158,10 +154,7 @@ public class Enemy : MonoBehaviour {
 		src.PlayOneShot(attacksound);
 
 	}
-	void attackrange()
-	{
 
-	}
 
 	IEnumerator attackTimer()
 	{
