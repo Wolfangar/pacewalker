@@ -8,15 +8,6 @@ AnimatorController:
   m_Name: CHARA
   serializedVersion: 5
   m_AnimatorParameters:
-<<<<<<< HEAD
-  - m_Name: PV
-    m_Type: 3
-    m_DefaultFloat: 0
-    m_DefaultInt: 1
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-=======
->>>>>>> 4bf9aed544d5c838c4e965b1ea296e17ad3a953a
   - m_Name: Dash
     m_Type: 4
     m_DefaultFloat: 0
