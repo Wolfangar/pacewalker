@@ -462,6 +462,7 @@ GameObject:
   - component: {fileID: 1800297582}
   - component: {fileID: 1800297581}
   - component: {fileID: 1800297587}
+  - component: {fileID: 1800297588}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -576,9 +577,9 @@ MonoBehaviour:
   dashDistance: 3
   recoverTime: 0.5
   dashDmg: 0
-  dashsound1: {fileID: 8300000, guid: 563d2669934392d4d8676ab263900a14, type: 3}
-  dashsound2: {fileID: 8300000, guid: 99e8f32b601f7d1468f1a2f56f11c6c2, type: 3}
-  dashsound3: {fileID: 8300000, guid: 5231701d0ceb1f048b77551590fb1889, type: 3}
+  dashsound1: {fileID: 8300000, guid: f40030b08ab2d1c46bfe059dab077bbc, type: 3}
+  dashsound2: {fileID: 8300000, guid: 24837e0415d9deb40b890b9264083e71, type: 3}
+  dashsound3: {fileID: 8300000, guid: 368ed7954492c8848821e0e32d19d76f, type: 3}
 --- !u!4 &1800297586
 Transform:
   m_ObjectHideFlags: 0
@@ -674,6 +675,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1800297588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1800297580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044a471b2da2fa5468354bcc3a726fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  petitepile: 0
+  grossepile: 0
+  sonpetitepile: {fileID: 0}
+  songrossepile: {fileID: 0}
 --- !u!1 &1836571762
 GameObject:
   m_ObjectHideFlags: 0

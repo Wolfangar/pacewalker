@@ -615,6 +615,7 @@ GameObject:
   - component: {fileID: 695883570}
   - component: {fileID: 695883571}
   - component: {fileID: 695883572}
+  - component: {fileID: 695883573}
   m_Layer: 9
   m_Name: Hero
   m_TagString: charac
@@ -682,9 +683,9 @@ MonoBehaviour:
   dashDistance: 3
   recoverTime: 0.6
   dashDmg: 0
-  dashsound1: {fileID: 0}
-  dashsound2: {fileID: 0}
-  dashsound3: {fileID: 0}
+  dashsound1: {fileID: 8300000, guid: f40030b08ab2d1c46bfe059dab077bbc, type: 3}
+  dashsound2: {fileID: 8300000, guid: 24837e0415d9deb40b890b9264083e71, type: 3}
+  dashsound3: {fileID: 8300000, guid: 368ed7954492c8848821e0e32d19d76f, type: 3}
 --- !u!96 &695883567
 TrailRenderer:
   serializedVersion: 2
@@ -875,6 +876,88 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petitepile: 0
   grossepile: 0
+  sonpetitepile: {fileID: 8300000, guid: 07caf310e0dacf74eb72e9e7a8578e41, type: 3}
+  songrossepile: {fileID: 8300000, guid: 4fee82757d92db84091db65a85ffb3f1, type: 3}
+--- !u!82 &695883573
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 695883562}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &730962157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,14 +1183,26 @@ MonoBehaviour:
   spawnBad: {fileID: 1950050586}
   spawnGood: {fileID: 1302408178}
   hero: {fileID: 695883562}
-  templateBad: {fileID: 1744287967726394, guid: a16543525b9d7244bbba6f710ad2bbe6,
-    type: 2}
-  templateGood: {fileID: 1722344487}
+  templateBad:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  templateBadProba: []
+  templateGood:
+  - {fileID: 0}
+  templateGoodProba: []
   startCountBad: 5
   startCountBadSpeed: 0.2
   countBadMin: 2
+  startCountBadDecreasingWave: 0.3
   spawnBadDistance: 15
+  enemyPerWave: 3
+  enemyPerWaveIncreasing: 1
+  timeBetweenWave: 5
+  timeBetweenWaveDecreasing: 0.3
+  timeBetweenWaveMin: 2
   counter: {fileID: 794981748}
+  numberWave: 0
 --- !u!4 &794981747
 Transform:
   m_ObjectHideFlags: 0
@@ -2575,7 +2670,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1948737733
+  randomSeed: 129124865
   InitialModule:
     serializedVersion: 3
     enabled: 1
