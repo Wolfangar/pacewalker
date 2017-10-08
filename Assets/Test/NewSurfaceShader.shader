@@ -30,6 +30,14 @@
 		float2 uv_MainTex;
 	};
 
+	fixed4 LightingNoLighting(SurfaceOutput s, fixed3 lightDir, fixed atten)
+	{
+		fixed4 c;
+		c.rgb = s.Albedo;
+		c.a = s.Alpha;
+		return c;
+	}
+
 	void surf(Input IN, inout SurfaceOutput o) {
 		fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
 		o.Albedo = c.rgb;

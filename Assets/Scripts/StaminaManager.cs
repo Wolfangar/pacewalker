@@ -19,6 +19,8 @@ public class StaminaManager : MonoBehaviour {
     [HideInInspector]
     public bool isDead = false;
 
+    public GameObject templateBlood;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -28,11 +30,34 @@ public class StaminaManager : MonoBehaviour {
 		//GameManager = GameObject.Find("GameManager");
     }
 
+    Coroutine coBlood = null;
+
     private void Update()
     {
         currentHealth -= decreasingSpeed * Time.deltaTime;
         currentHealth = Mathf.Clamp(currentHealth, 0.0f, totalHealth);
         checkHealth();
+
+        if(templateBlood != null && (float) currentHealth / totalHealth < 0.2f)
+        {
+            if(coBlood == null)
+                coBlood = StartCoroutine(timerFXBlood());
+        }
+        else if(coBlood != null)
+        {
+            coBlood = null;
+            StopCoroutine(coBlood);
+        }
+    }
+
+    IEnumerator timerFXBlood()
+    {
+        while (!isDead)
+        {
+            GameObject go = Instantiate(templateBlood);
+            go.transform.position = new Vector3(transform.position.x, go.transform.position.y, transform.position.z);
+            yield return new WaitForSeconds(0.7f);
+        }
     }
 
     private void checkHealth()
