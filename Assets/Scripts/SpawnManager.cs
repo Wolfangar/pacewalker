@@ -21,6 +21,7 @@ public class SpawnManager : MonoBehaviour {
     public float startCountBad = 5.0f;//time between spawn
     public float startCountBadSpeed = 0.2f;//decreasing speed
     public float countBadMin = 2.0f;//min time between spawn
+    public float startCountBadDecreasingWave = 0.3f;//Spawned speed reset and decreasing per wave
 
     public float spawnBadDistance = 12.0f;//spawn distance to instanciate enemy
 
@@ -156,7 +157,7 @@ public class SpawnManager : MonoBehaviour {
 
             currentCountBad -= startCountBadSpeed;
 
-            currentCountBad = Mathf.Clamp(startCountBad, countBadMin, startCountBad);
+            currentCountBad = Mathf.Clamp(currentCountBad, countBadMin, startCountBad);
 
             currentEnemySpawned++;
             if(currentEnemySpawned >= enemyPerWave)//Wave finished
@@ -171,6 +172,12 @@ public class SpawnManager : MonoBehaviour {
                 currentTimeBetweenWave -= timeBetweenWaveDecreasing;
                 currentTimeBetweenWave = Mathf.Clamp(currentTimeBetweenWave, timeBetweenWaveMin, timeBetweenWave);
                 Debug.Log("currentTimeBetweenWave " + currentTimeBetweenWave);
+
+                currentCountBad = startCountBad;
+                currentCountBad -= startCountBadDecreasingWave;
+                startCountBadDecreasingWave += startCountBadDecreasingWave;
+                currentCountBad = Mathf.Clamp(currentCountBad, countBadMin, startCountBad);
+                Debug.Log("currentCountBad " + currentCountBad);
 
                 yield return new WaitForSeconds(currentTimeBetweenWave);
             }
