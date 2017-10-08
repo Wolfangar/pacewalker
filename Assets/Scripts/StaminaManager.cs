@@ -66,6 +66,12 @@ public class StaminaManager : MonoBehaviour {
             dead();
     }
 
+    public void killMe()
+    {
+        currentHealth = 0;
+        checkHealth();
+    }
+
     public void dead()
     {
         if (isDead)
