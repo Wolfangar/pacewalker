@@ -24,6 +24,9 @@ public class SpawnManager : MonoBehaviour {
     public float startCountBadDecreasingWave = 0.3f;//Spawned speed reset and decreasing per wave
 
     public float spawnBadDistance = 12.0f;//spawn distance to instanciate enemy
+    public float spawnGoodDistance = 12.0f;
+
+    public float spawnCountGood = 3.0f;
 
     //
     public int enemyPerWave = 3;
@@ -35,6 +38,8 @@ public class SpawnManager : MonoBehaviour {
     //
 
     public Counter counter;
+
+    private float currentCountBadDecreasingWave;
 
     private List<bool> availablePileSpawns = new List<bool>();
 
@@ -51,6 +56,7 @@ public class SpawnManager : MonoBehaviour {
             
         currentCountBad = startCountBad;
         currentTimeBetweenWave = timeBetweenWave;
+        currentCountBadDecreasingWave = startCountBadDecreasingWave;
 
         StartCoroutine(spawnBadThings());
         StartCoroutine(spawnGoodThings());
@@ -69,7 +75,7 @@ public class SpawnManager : MonoBehaviour {
 
     IEnumerator spawnGoodThings()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(spawnCountGood);
 
         while (true)
         {
@@ -78,7 +84,7 @@ public class SpawnManager : MonoBehaviour {
             int i = 0;
             foreach (GameObject spawn in listSpawnGood)
             {
-                if (availablePileSpawns[i])
+                if (availablePileSpawns[i] && Vector3.SqrMagnitude(spawn.transform.position - hero.transform.position) > spawnGoodDistance * spawnGoodDistance)
                 {
                     tempList.Add(spawn);
                     Debug.Log("pile; " + spawn.transform.name);
@@ -88,7 +94,7 @@ public class SpawnManager : MonoBehaviour {
 
             if (tempList.Count == 0)
             {
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(spawnCountGood);//AHHAHAHHAHA
                 continue;
             }
 
@@ -110,7 +116,7 @@ public class SpawnManager : MonoBehaviour {
             pileScript.spawnManager = this;
             
 
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(spawnCountGood);
         }
     }
 
@@ -174,8 +180,8 @@ public class SpawnManager : MonoBehaviour {
                 Debug.Log("currentTimeBetweenWave " + currentTimeBetweenWave);
 
                 currentCountBad = startCountBad;
-                currentCountBad -= startCountBadDecreasingWave;
-                startCountBadDecreasingWave += startCountBadDecreasingWave;
+                currentCountBad -= currentCountBadDecreasingWave;
+                currentCountBadDecreasingWave += startCountBadDecreasingWave;
                 currentCountBad = Mathf.Clamp(currentCountBad, countBadMin, startCountBad);
                 Debug.Log("currentCountBad " + currentCountBad);
 

@@ -9,32 +9,32 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1461876726797490}
+  m_RootGameObject: {fileID: 1604792337170744}
   m_IsPrefabParent: 1
---- !u!1 &1461876726797490
+--- !u!1 &1604792337170744
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4795129525256638}
-  - component: {fileID: 212435174777445494}
-  - component: {fileID: 95651620976854916}
-  - component: {fileID: 111788183470341098}
+  - component: {fileID: 4366480264496710}
+  - component: {fileID: 212500991291934682}
+  - component: {fileID: 95759409040426572}
+  - component: {fileID: 111288352992145750}
   m_Layer: 0
-  m_Name: FX etoile 1
+  m_Name: FX etoile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4795129525256638
+--- !u!4 &4366480264496710
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461876726797490}
+  m_GameObject: {fileID: 1604792337170744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -42,16 +42,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95651620976854916
+--- !u!95 &95759409040426572
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461876726797490}
+  m_GameObject: {fileID: 1604792337170744}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 31eaf7d19026c8c44bb6b4e97723aee2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3d3e001b0d92340408ee6f8b708fc785, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -59,12 +59,12 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!111 &111788183470341098
+--- !u!111 &111288352992145750
 Animation:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461876726797490}
+  m_GameObject: {fileID: 1604792337170744}
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 0}
@@ -73,12 +73,12 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!212 &212435174777445494
+--- !u!212 &212500991291934682
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461876726797490}
+  m_GameObject: {fileID: 1604792337170744}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

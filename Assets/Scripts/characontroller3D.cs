@@ -27,7 +27,7 @@ public class characontroller3D : MonoBehaviour {
 	AudioClip dash;
 	AudioClip[] dashsounds;
 
-
+    SpriteRenderer sprite;
 	AudioSource src;
 	Animator anim;
     StaminaManager stam;
@@ -38,11 +38,54 @@ public class characontroller3D : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		stam = GetComponent<StaminaManager>();
 		src = GetComponent<AudioSource>();
-		dashsounds = new AudioClip[] {
+        sprite = GetComponent<SpriteRenderer>();
+        dashsounds = new AudioClip[] {
 		dashsound1, dashsound2, dashsound3 };
 	
 
-}
+    }
+
+    public float timeInvicible = 2.0f;
+    public float fadeSpeed = 2.0f;
+    private bool invicible = false;
+
+    public void tryDamage(float dmg)
+    {
+        if (!invicible)
+        {
+            Debug.Log("real damage hero");
+            invicible = true;
+            stam.loseHealth(dmg);
+            StartCoroutine(timerInvicible());
+        }
+    }
+
+    IEnumerator fadeInOut()
+    {
+        while (true)
+        {
+            for (float alpha = 1.0f; alpha > 0f; alpha -= Time.deltaTime * fadeSpeed)
+            {
+                sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, alpha);
+                yield return null;
+            }
+            for (float alpha = 0.0f; alpha <= 1f; alpha += Time.deltaTime * fadeSpeed)
+            {
+                sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, alpha);
+                yield return null;
+            }
+        }
+    }
+
+    IEnumerator timerInvicible()
+    {
+        Coroutine co = StartCoroutine(fadeInOut());
+        yield return new WaitForSeconds(timeInvicible);
+        StopCoroutine(co);
+        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1.0f);
+        invicible = false;
+    }
+
 
 private Vector3 lastVelo;
 
