@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour {
     StaminaManager selfstam;
     private Rigidbody2D rigidBody;
 	public GameObject hero;
+	public AudioClip hitsound, attacksound;
+	AudioSource src;
     //private float initScaleX;
 
     private NavMeshAgent navMesh;
@@ -25,7 +27,7 @@ public class Enemy : MonoBehaviour {
         selfstam = GetComponent<StaminaManager>();
         herostam = hero.GetComponent<StaminaManager>();
         navMesh = GetComponent<NavMeshAgent>();
-
+		src = GetComponent<AudioSource>();
         navMesh.updateRotation = false;
 
         //initScaleX = transform.localScale.x;
@@ -86,6 +88,7 @@ public class Enemy : MonoBehaviour {
             hasAttacked = true;
             Debug.Log("damage");
             herostam.loseHealth(hitdmg);
+			src.PlayOneShot(hitsound);
         }
     }
 
@@ -113,7 +116,7 @@ public class Enemy : MonoBehaviour {
         canAttack = false;
 
         anim.SetBool("attack", true);
-
+	
         if(navMesh.isActiveAndEnabled)
             navMesh.isStopped = true;
         navMesh.velocity = Vector3.zero;
@@ -150,6 +153,11 @@ public class Enemy : MonoBehaviour {
         StartCoroutine(attackTimer());
 	}
 
+	public void playattacksound()
+	{
+		src.PlayOneShot(attacksound);
+
+	}
 	void attackrange()
 	{
 
